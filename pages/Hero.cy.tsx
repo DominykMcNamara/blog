@@ -22,7 +22,7 @@ describe("<Hero />", () => {
       .and("not.be.disabled");
     cy.get('[data-cy="learn-more-button"]')
       .should("contains.text", "Learn More")
-      .and("not.be.disabled");
+      .and("not.be.disabled")
 
     cy.get("img")
       .should("be.visible")

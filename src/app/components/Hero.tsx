@@ -23,14 +23,14 @@ export default function Hero() {
             <Link
               className="bg-violet-500 rounded-sm text-slate-100 p-3 hover:opacity-90 hover:underline my-10 drop-shadow-xl"
               data-cy="login-button"
-              href="/"
+              href="/login"
             >
               Login or Signup
             </Link>
             <Link
               className="bg-purple-500 mx-2 rounded-sm text-slate-100 p-3 hover:opacity-90 hover:underline my-10 drop-shadow-xl"
               data-cy="learn-more-button"
-              href="/"
+              href="#features"
             >
               Learn More
             </Link>
@@ -41,7 +41,6 @@ export default function Hero() {
             height={500}
             width={600}
             className="my-4"
-            data-cy="bookshelf-img"
           />
         </div>
 
@@ -51,7 +50,6 @@ export default function Hero() {
           height={500}
           width={600}
           className="mx-auto"
-          data-cy="typewriter-image"
         />
       </div>
     </section>

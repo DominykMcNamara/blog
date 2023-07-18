@@ -2,6 +2,7 @@ import "./globals.css";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import NavBar from "./components/NavBar";
+import Footer from "./components/Footer";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -16,10 +17,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className="bg-slate-100  font-serif">
+    <html lang="en" className="bg-slate-100  font-serif scroll-smooth">
       <body className={inter.className}>
         <NavBar />
         {children}
+        <Footer />
       </body>
     </html>
   );
