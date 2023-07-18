@@ -7,7 +7,7 @@ describe("<SignupForm />", () => {
     cy.get("input")
       .should("to.be.empty")
       .and(($input) => {
-        expect($input).to.have.length(3);
+        expect($input).to.have.length(5);
         expect($input).to.have.attr("type");
       });
     cy.get("button").should("have.attr", "type");
