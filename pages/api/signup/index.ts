@@ -10,7 +10,7 @@ export default async function POST(req: NextApiRequest, res: NextApiResponse) {
     },
   });
   if (userNameExist) {
-    return res.json({ message: "Username already exists" });
+    return res.status(409).json({ message: "Username already exists" });
   }
   const emailExist = await prisma?.user.findUnique({
     where: {
@@ -18,10 +18,10 @@ export default async function POST(req: NextApiRequest, res: NextApiResponse) {
     },
   });
   if (emailExist) {
-    return res.json({ message: "Email already in use" });
+    return res.status(409).json({ message: "Email already in use" });
   }
   if (!firstName || !lastName || !username || !email || !password) {
-    return res.json({ message: "Required data is missing" });
+    return res.status(400).json({ message: "Required data is missing" });
   }
   const saltRounds = 10;
   const hashedPassword = await bcrypt.hash(password, saltRounds);
@@ -34,5 +34,5 @@ export default async function POST(req: NextApiRequest, res: NextApiResponse) {
       password: hashedPassword,
     },
   });
-  return res.json({ User: newUser });
+  return res.status(201).json({ User: newUser });
 }
