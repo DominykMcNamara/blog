@@ -1,25 +1,9 @@
 import { PrismaClient } from "@prisma/client";
 const prisma = new PrismaClient();
 
-async function main() {
-  await prisma.user.createMany({
-    data: [
-      {
-        firstName: "Dom",
-        lastName: "McNamara",
-        username: "Dom",
-        password: "dom",
-        email: "dom@dom.com",
-      },
-      {
-        firstName: "Mackenzie",
-        lastName: "McNamara",
-        username: "Mackenzie",
-        password: "Mackenzie",
-        email: "Mackenzie@Mackenzie.com",
-      },
-    ],
-  });
+export default async function main() {
+  
+  
 }
 main()
   .then(async () => {

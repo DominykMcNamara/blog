@@ -1,15 +1,19 @@
 describe("creating a user", () => {
+  beforeEach(() => {
+    cy.task("resetDB");
+    cy.task("seedDB");
+  });
   it("will return an error if the username is already stored in the database", () => {
     cy.request({
       method: "POST",
       url: "/api/signup",
       failOnStatusCode: false,
       body: {
-        firstName: "Mack",
+        firstName: "Maple",
         lastName: "McNamara",
-        username: "MMCN",
-        password: "mmc",
-        email: "m@m.com",
+        username: "Dom",
+        password: "Maple",
+        email: "maple@maple.com",
       },
     }).then((response) => {
       expect(response.status).to.eq(409);
@@ -25,11 +29,11 @@ describe("creating a user", () => {
       url: "/api/signup",
       failOnStatusCode: false,
       body: {
-        firstName: "Mackenzie",
+        firstName: "Maple",
         lastName: "McNamara",
-        username: "MMGCN",
+        username: "Maple",
         password: "mmc",
-        email: "m@m.com",
+        email: "dom@dom.com",
       },
     }).then((response) => {
       expect(response.status).to.eq(409);
@@ -44,9 +48,9 @@ describe("creating a user", () => {
       body: {
         firstName: "",
         lastName: "McNamara",
-        username: "MMGCNNNN",
+        username: "Maple",
         password: "mmc",
-        email: "m@mNN.com",
+        email: "maple@maple.com",
       },
     }).then((response) => {
       expect(response.status).to.eq(400);
@@ -62,11 +66,11 @@ describe("creating a user", () => {
       url: "/api/signup",
       failOnStatusCode: false,
       body: {
-        firstName: "Mackenzie",
+        firstName: "Maple",
         lastName: "",
-        username: "MMGCNNNNNrewrewrw",
+        username: "Maple",
         password: "mmc",
-        email: "m@mNNNNdrwerewrwerwsa.com",
+        email: "maple@maple.com",
       },
     }).then((response) => {
       expect(response.status).to.eq(400);
@@ -82,11 +86,11 @@ describe("creating a user", () => {
       url: "/api/signup",
       failOnStatusCode: false,
       body: {
-        firstName: "Mackenzie",
+        firstName: "Maple",
         lastName: "McNamara",
         username: "",
         password: "mmc",
-        email: "m@mNaaaadsrwerewrewrwad.com",
+        email: "maple@maple.com",
       },
     }).then((response) => {
       expect(response.status).to.eq(400);
@@ -102,15 +106,14 @@ describe("creating a user", () => {
       url: "/api/signup",
       failOnStatusCode: false,
       body: {
-        firstName: "Mackenzie",
+        firstName: "Maple",
         lastName: "McNamara",
-        username: "Dommedyredtrydemmmdsadsad",
+        username: "Maple",
         password: "mmc",
-        email: "m@mNaaaaaaaaafdsfdsfsdfsdadasdasdas.com",
+        email: "maple@maple.com",
       },
     }).then((response) => {
-      expect(response.status).to.eq(201)
-      
+      expect(response.status).to.eq(201);
     });
   });
 });
