@@ -1,8 +1,7 @@
-import { PrismaClient } from "@prisma/client";
-const prisma = new PrismaClient();
+import prisma from '../../lib/prisma'
 
 export default async function seedDB() {
-    return await prisma.user.createMany({
+    return await prisma?.user.createMany({
         data: [
           {
             firstName: "Dom",
