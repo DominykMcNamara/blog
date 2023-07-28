@@ -20,6 +20,8 @@
     "@types/react-dom": "18.2.6",
     "autoprefixer": "10.4.14",
     "bcrypt": "^5.1.0",
+    "cookies": "^0.8.0",
+    "crypto": "^1.0.1",
     "eslint": "8.44.0",
     "eslint-config-next": "13.4.9",
     "next": "13.4.9",

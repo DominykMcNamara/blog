@@ -24,8 +24,7 @@ export default function SignupForm() {
         email, firstName, lastName, username, password
       })
     })
-    const result = await res.json()
-    console.log(result)
+    console.log(res)
     router.push('/login')
 
   }

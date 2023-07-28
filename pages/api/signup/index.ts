@@ -1,3 +1,4 @@
+import { CredentialsProvider } from "next-auth/providers/credentials";
 import prisma from "../../../lib/prisma";
 import type { NextApiRequest, NextApiResponse } from "next";
 const bcrypt = require("bcrypt");
@@ -33,5 +34,27 @@ export default async function POST(req: NextApiRequest, res: NextApiResponse) {
       password: hashedPassword,
     },
   });
-  return res.status(201).json({ User: newUser });
+
+  const account = await prisma?.account.create({
+    data: {
+      userId: newUser.id,
+      type: "credentials",
+      provider: "credentials",
+      providerAccountId: newUser.id,
+    },
+  });
+  if (newUser && account) {
+    res.status(200).json({
+      id: newUser.id,
+      firstName: newUser.firstName,
+      lastName: newUser.lastName,
+      email: newUser.email,
+      username: newUser.username,
+      image: newUser.image || "default.jpg",
+    });
+  } else {
+    res.status(500).json({
+      message: "Unable to create account.",
+    });
+  }
 }
