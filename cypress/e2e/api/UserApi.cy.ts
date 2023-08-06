@@ -115,7 +115,7 @@ describe("creating a user", () => {
         email: "maple@maple.com",
       },
     }).then((response) => {
-      expect(response.status).to.eq(201);
+      expect(response.status).to.eq(200);
     });
   });
 });

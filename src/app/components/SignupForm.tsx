@@ -1,36 +1,51 @@
 "use client";
 
 import { FormEvent, useState } from "react";
-import { useRouter } from "next/navigation"
-
+import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 export default function SignupForm() {
+  const [error, setError] = useState("");
+  const [success, setSuccess] = useState("");
   const [email, setEmail] = useState("");
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [password, setPassword] = useState("");
   const [username, setUsername] = useState("");
-  const router = useRouter()
 
-
-  const handleSubmit = async(e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault()
-    const res = await fetch('http://localhost:3000/api/signup', {
-      method: 'POST',
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const res = await fetch("http://localhost:3000/api/signup", {
+      method: "POST",
       headers: {
-        'Content-Type': 'application/json'
+        "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        email, firstName, lastName, username, password
-      })
-    })
-    console.log(res)
-    router.push('/login')
-
-  }
+        email,
+        firstName,
+        lastName,
+        username,
+        password,
+      }),
+    });
+    if (res.status === 409) {
+      setError("Username or Email is already in use");
+    }
+    if (res.status === 400) {
+      setError("Required data is missing");
+    }
+    if (res.status === 500) {
+      setError("Unable to create account");
+    } else if (res.status === 200) {
+      setSuccess("Account successfully created click here to login!");
+    }
+  };
   return (
     <>
-      <form onSubmit={handleSubmit} className="flex flex-col w-96 mx-auto my-5 p-5 bg-slate-200 rounded-lg">
+      <form
+        onSubmit={handleSubmit}
+        className="flex flex-col w-96 mx-auto my-5 p-5 bg-slate-200 rounded-lg"
+      >
         <input
           className="my-5 p-2 outline-none rounded-sm"
           onChange={(e) => setFirstName(e.target.value)}
@@ -76,6 +91,12 @@ export default function SignupForm() {
           placeholder="password"
           onChange={(e) => setPassword(e.target.value)}
         />
+        {error && <p className="text-center text-red-500">{error}</p>}
+        {success && (
+          <Link href="/login" className="hover:underline text-green-500">
+            {success}
+          </Link>
+        )}
         <button
           className="bg-violet-500 p-2 text-slate-100 rounded-sm hover:opacity-90"
           type="submit"

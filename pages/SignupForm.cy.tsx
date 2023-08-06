@@ -1,4 +1,4 @@
-/*import SignupForm from "@/app/components/SignupForm";
+import SignupForm from "@/app/components/SignupForm";
 
 
 describe("<SignupForm />", () => {
@@ -16,4 +16,3 @@ describe("<SignupForm />", () => {
     cy.get("button").should("have.attr", "type");
   });
 });
-*/

@@ -1,4 +1,3 @@
-import { CredentialsProvider } from "next-auth/providers/credentials";
 import prisma from "../../../lib/prisma";
 import type { NextApiRequest, NextApiResponse } from "next";
 const bcrypt = require("bcrypt");
@@ -37,10 +36,10 @@ export default async function POST(req: NextApiRequest, res: NextApiResponse) {
 
   const account = await prisma?.account.create({
     data: {
-      userId: newUser.id,
+      userId: newUser?.id || 'err',
       type: "credentials",
       provider: "credentials",
-      providerAccountId: newUser.id,
+      providerAccountId: newUser?.id || 'err',
     },
   });
   if (newUser && account) {

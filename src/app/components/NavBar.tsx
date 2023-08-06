@@ -26,7 +26,7 @@ export default function NavBar(): JSX.Element {
             className="no-underline text-slate-200 hover:underline hover:opacity-95"
             href="/login"
           >
-            Account/Signup
+            Login
           </Link>
         </div>
       </div>

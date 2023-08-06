@@ -14,7 +14,7 @@ describe("<NavBar />", () => {
     cy.get('[data-cy="home-link"]').should("contains.text", "Home");
     cy.get('[data-cy="account-link"]').should(
       "contains.text",
-      "Account/Signup"
+      "Login"
     );
   });
 });

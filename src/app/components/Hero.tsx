@@ -25,10 +25,17 @@ export default function Hero() {
               data-cy="login-button"
               href="/login"
             >
-              Login or Signup
+              Login
             </Link>
             <Link
-              className="bg-purple-500 mx-2 rounded-sm text-slate-100 p-3 hover:opacity-90 hover:underline my-10 drop-shadow-xl"
+              className="bg-violet-500 rounded-sm text-slate-100 p-3 hover:opacity-90 hover:underline my-10 mx-2 drop-shadow-xl"
+              data-cy="signup-button"
+              href="/signup"
+            >
+              Signup
+            </Link>
+            <Link
+              className="bg-purple-500 rounded-sm text-slate-100 p-3 hover:opacity-90 hover:underline my-10 drop-shadow-xl"
               data-cy="learn-more-button"
               href="#features"
             >

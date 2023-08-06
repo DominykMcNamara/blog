@@ -7,7 +7,7 @@ describe("<Hero />", () => {
     cy.get("a")
       .should("not.be.empty")
       .and(($a) => {
-        expect($a).to.have.length(3);
+        expect($a).to.have.length(4);
         expect($a).to.have.attr("href");
       });
     cy.get('[data-cy="hero-title"]').should(
@@ -18,7 +18,7 @@ describe("<Hero />", () => {
       .should("contains.text", "Signup")
       .and("not.be.disabled");
     cy.get('[data-cy="login-button"]')
-      .should("contains.text", "Login or Signup")
+      .should("contains.text", "Login")
       .and("not.be.disabled");
     cy.get('[data-cy="learn-more-button"]')
       .should("contains.text", "Learn More")
