@@ -10,7 +10,7 @@ export default function LoginForm() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const searchParams = useSearchParams();
-  const callbackUrl = searchParams?.get("callbackUrl") || "/profile";
+  const callbackUrl = searchParams?.get("callbackUrl") || "/myProfile";
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     try {

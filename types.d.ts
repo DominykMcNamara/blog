@@ -5,6 +5,7 @@ type User = {
   username: string;
   email: string;
   password: string;
+  image: string
   createdAt: string;
   updatedAt: string;
   BlogPost: BlogPost[];
@@ -32,3 +33,9 @@ type Account = {
   id_token: string?;
   session_state: string?;
 };
+
+interface ImageData {
+  publicId: string
+  format: string,
+  version: string
+}

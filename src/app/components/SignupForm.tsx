@@ -12,6 +12,7 @@ export default function SignupForm() {
   const [lastName, setLastName] = useState("");
   const [password, setPassword] = useState("");
   const [username, setUsername] = useState("");
+  const [image, setImage] = useState();
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -26,6 +27,7 @@ export default function SignupForm() {
         lastName,
         username,
         password,
+        image: image,
       }),
     });
     if (res.status === 409) {
@@ -40,6 +42,17 @@ export default function SignupForm() {
       setSuccess("Account successfully created click here to login!");
     }
   };
+
+  function handleImageChange(e: React.ChangeEvent<HTMLInputElement>) {
+    const file = e.target.files?.[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = (event) => {
+        setImage(event.target?.result as any);
+      };
+      reader.readAsDataURL(file);
+    }
+  }
   return (
     <>
       <form
@@ -91,6 +104,14 @@ export default function SignupForm() {
           placeholder="password"
           onChange={(e) => setPassword(e.target.value)}
         />
+        <input
+          className="my-5 p-2 outline-none rounded-sm"
+          type="file"
+          cy-data="image"
+          placeholder="Select file"
+          onChange={handleImageChange}
+        />
+
         {error && <p className="text-center text-red-500">{error}</p>}
         {success && (
           <Link href="/login" className="hover:underline text-green-500">

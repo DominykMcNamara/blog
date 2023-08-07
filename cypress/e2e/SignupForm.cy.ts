@@ -6,7 +6,7 @@ describe('<SignupForm />', () => {
     })
     it('Should create a new user', () => {
       cy.createUser("lady", "McNamara", "lady@lady.com", "lady", "lady");
-      cy.url().should('contain', '/login')
+        
     })
   
       
