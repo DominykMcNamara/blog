@@ -16,3 +16,4 @@ describe("<SignupForm />", () => {
     cy.get("button").should("have.attr", "type");
   });
 });
+

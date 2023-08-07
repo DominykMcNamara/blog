@@ -6,16 +6,20 @@ import Link from "next/link";
 
 export default function SignupForm() {
   const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false)
   const [success, setSuccess] = useState("");
   const [email, setEmail] = useState("");
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [password, setPassword] = useState("");
   const [username, setUsername] = useState("");
-  const [image, setImage] = useState();
+  const [image, setImage] = useState("https://res.cloudinary.com/dab5zmbvd/image/upload/v1691437826/undraw_monster_artist_2crm_kvoet0.svg");
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    setLoading(true)
+    setError("")
+    setSuccess("")
     const res = await fetch("http://localhost:3000/api/signup", {
       method: "POST",
       headers: {
@@ -27,18 +31,24 @@ export default function SignupForm() {
         lastName,
         username,
         password,
-        image: image,
+        image: image
       }),
     });
+   
     if (res.status === 409) {
+      setLoading(false)
       setError("Username or Email is already in use");
     }
     if (res.status === 400) {
+      setLoading(false)
       setError("Required data is missing");
     }
     if (res.status === 500) {
+      setLoading(false)
       setError("Unable to create account");
     } else if (res.status === 200) {
+      setLoading(false)
+      setError('')
       setSuccess("Account successfully created click here to login!");
     }
   };
@@ -104,14 +114,15 @@ export default function SignupForm() {
           placeholder="password"
           onChange={(e) => setPassword(e.target.value)}
         />
+        <label>Profile pic</label>
         <input
-          className="my-5 p-2 outline-none rounded-sm"
+          className="my-2 outline-none rounded-sm"
           type="file"
           cy-data="image"
-          placeholder="Select file"
+          placeholder="Profile Picture"
           onChange={handleImageChange}
         />
-
+        {loading && <p>Creating account...</p>}
         {error && <p className="text-center text-red-500">{error}</p>}
         {success && (
           <Link href="/login" className="hover:underline text-green-500">

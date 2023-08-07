@@ -11,6 +11,9 @@ export default function Profile() {
   const router = useRouter();
   const { data: session } = useSession({
     required: true,
+     onUnauthenticated() {
+      router.push('/login')
+    },
   });
 
   return (
@@ -19,9 +22,9 @@ export default function Profile() {
         <div className="max-w-4xl mx-auto bg-ct-dark-100 rounded-md h-[20rem] flex justify-center items-center">
           <div>
             {!session?.user ? (
-              <>
-                <h1>Loading...</h1>
-              </>
+             <>
+             <p>Loading...</p>
+             </>
             ) : (
               <div className="flex items-center gap-8">
                 <h2>Welcome {session?.user?.email}</h2>

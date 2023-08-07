@@ -6,6 +6,7 @@ import { useSearchParams, useRouter } from "next/navigation";
 
 export default function LoginForm() {
   const router = useRouter();
+  const [loading, setLoading] = useState(false)
   const [error, setError] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -13,6 +14,7 @@ export default function LoginForm() {
   const callbackUrl = searchParams?.get("callbackUrl") || "/myProfile";
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
+    setLoading(true)
     try {
       const result = await signIn("credentials", {
         email,
@@ -21,10 +23,11 @@ export default function LoginForm() {
         callbackUrl,
       });
       if (!result?.error) {
-        console.log(result);
+        setLoading(false)
         router.push(callbackUrl);
       }
       else {
+        setLoading(false)
         setError("Email or password is incorrect");
       }
     } catch (err) {
@@ -53,6 +56,7 @@ export default function LoginForm() {
           cy-data="login-password"
           required
         />
+        {loading && <p>Logging in...</p>}
         {error && <p className="text-center text-red-500">{error}</p>}
         <button
           cy-data="login-button"
@@ -61,9 +65,6 @@ export default function LoginForm() {
           Login
         </button>
       </form>
-      <button onClick={() => signOut({ callbackUrl: "/profile" })}>
-        Signout
-      </button>
       <Link
         cy-data="login-signup"
         className="text-center no-underline hover:underline my-5"

@@ -1,7 +1,9 @@
-
+import { useSession } from "next-auth/react";
 import LoginForm from "../components/LoginForm";
+import { useRouter } from "next/navigation";
 
-export default function page() {
+
+export default function Login() {
   return (
     <section id="#login" className="p-5 min-h-[100vh] flex flex-col justify-center">
       <div>
