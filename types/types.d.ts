@@ -34,8 +34,3 @@ type Account = {
   session_state: string?;
 };
 
-interface ImageData {
-  publicId: string
-  format: string,
-  version: string
-}

@@ -122,10 +122,9 @@ export default function SignupForm() {
           placeholder="Profile Picture"
           onChange={handleImageChange}
         />
-        {loading && <p></p>}
-        {error && <p className="text-center text-red-500">{error}</p>}
+        {error && <p data-cy='signup-error-message' className="text-center text-red-500">{error}</p>}
         {success && (
-          <Link href="/login" className="hover:underline text-green-500">
+          <Link    data-cy="login-link" href="/login" className="hover:underline text-green-500">
             {success}
           </Link>
         )}
