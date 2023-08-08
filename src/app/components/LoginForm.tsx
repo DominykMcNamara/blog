@@ -56,13 +56,13 @@ export default function LoginForm() {
           cy-data="login-password"
           required
         />
-        {loading && <p>Logging in...</p>}
         {error && <p className="text-center text-red-500">{error}</p>}
         <button
+        disabled={loading}
           cy-data="login-button"
           className="bg-violet-500 p-2 text-slate-100 rounded-sm hover:opacity-90"
         >
-          Login
+          {loading ? 'Logging in...' : 'Login'}
         </button>
       </form>
       <Link

@@ -31,7 +31,8 @@
     "**/*.tsx",
     ".next/types/**/*.ts",
     "next-auth.d.ts",
-    "cypress/**/*.ts"
+    "cypress/**/*.ts",
+    "types/**/*.ts"
   ],
   "exclude": ["node_modules"]
 }

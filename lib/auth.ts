@@ -47,17 +47,26 @@ export const authOptions: NextAuthOptions = {
           lastName: user.lastName,
           username: user.username,
           email: user.email,
-          image: user.image || "default.jpg",
+          image: user.image
         };
       },
     }),
   ],
   callbacks: {
-    session: ({ session, token }) => {
+    session: async ({ session, token }) => {
+      const userData = await prisma?.user.findUnique({
+        where: {
+          email: session.user?.email || undefined
+        }
+      })
       return {
         ...session,
         user: {
           ...session.user,
+          userId: userData?.id,
+          firstName: userData?.firstName,
+          lastName: userData?.lastName,
+          username: userData?.username,
           id: token.id,
           randomKey: token.randomKey,
         },

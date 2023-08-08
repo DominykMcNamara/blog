@@ -122,7 +122,7 @@ export default function SignupForm() {
           placeholder="Profile Picture"
           onChange={handleImageChange}
         />
-        {loading && <p>Creating account...</p>}
+        {loading && <p></p>}
         {error && <p className="text-center text-red-500">{error}</p>}
         {success && (
           <Link href="/login" className="hover:underline text-green-500">
@@ -130,11 +130,12 @@ export default function SignupForm() {
           </Link>
         )}
         <button
+        disabled={loading}
           className="bg-violet-500 p-2 text-slate-100 rounded-sm hover:opacity-90"
           type="submit"
           cy-data="signup-button"
         >
-          Signup
+         {loading ? 'Creating account...': 'Sign up'}
         </button>
       </form>
     </>
