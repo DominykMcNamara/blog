@@ -21,11 +21,13 @@ export default function RootLayout({
     
     <html lang="en" className="bg-slate-100  font-serif scroll-smooth">
       <body className={inter.className}>
+      <AuthProvider>
         <NavBar />
-        <AuthProvider>
+        
         {children}
-        </AuthProvider>
+     
         <Footer />
+        </AuthProvider>
       </body>
     </html>
    
