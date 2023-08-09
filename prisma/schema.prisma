@@ -18,6 +18,10 @@ model User {
     email     String     @unique
     password  String     @db.VarChar(200)
     image     String?    @db.VarChar(255)
+    location  String?    @db.VarChar(140)
+    pronouns  String?
+    link      String?    @db.VarChar(140)
+    bio       String?    @db.VarChar(140)
     accounts  Account[]
     sessions  Session[]
     createdAt DateTime   @default(now()) @map(name: "created_at")

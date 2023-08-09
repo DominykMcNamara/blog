@@ -5,7 +5,11 @@ type User = {
   username: string;
   email: string;
   password: string;
-  image: string
+  image?: string;
+  location?: string;
+  pronouns?: string;
+  bio?: string;
+
   createdAt: string;
   updatedAt: string;
   BlogPost: BlogPost[];
@@ -33,4 +37,3 @@ type Account = {
   id_token: string?;
   session_state: string?;
 };
-

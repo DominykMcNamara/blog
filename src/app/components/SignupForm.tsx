@@ -13,6 +13,9 @@ export default function SignupForm() {
   const [lastName, setLastName] = useState("");
   const [password, setPassword] = useState("");
   const [username, setUsername] = useState("");
+  const [location, setLocation] = useState("")
+  const [pronouns, setPronouns] = useState("")
+  const [bio, setBio] = useState("")
   const [image, setImage] = useState("https://res.cloudinary.com/dab5zmbvd/image/upload/v1691437826/undraw_monster_artist_2crm_kvoet0.svg");
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {

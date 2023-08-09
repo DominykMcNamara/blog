@@ -1,12 +1,11 @@
 import prisma from "../../../lib/prisma";
-import cloudinary from 'cloudinary';
-import '../../../lib/cloudinary'
+import cloudinary from "cloudinary";
+import "../../../lib/cloudinary";
 import type { NextApiRequest, NextApiResponse } from "next";
-import { Readable } from "stream";
 const bcrypt = require("bcrypt");
 
 export default async function POST(req: NextApiRequest, res: NextApiResponse) {
-  const { firstName, lastName, username, email, password, image } = req.body;
+  const { firstName, lastName, username, email, password, image, location, pronouns, bio } = req.body;
   const userNameExist = await prisma?.user.findUnique({
     where: {
       username: username,
@@ -27,7 +26,7 @@ export default async function POST(req: NextApiRequest, res: NextApiResponse) {
     return res.status(400).json({ message: "Required data is missing" });
   }
   const uploadResult = await cloudinary.v2.uploader.upload(image, {
-    folder: 'user-profiles', // Folder where images will be stored in Cloudinary
+    folder: "user-profiles",
   });
   const hashedPassword = await bcrypt.hash(password, 10);
   const newUser = await prisma?.user.create({
@@ -37,7 +36,10 @@ export default async function POST(req: NextApiRequest, res: NextApiResponse) {
       username,
       email,
       password: hashedPassword,
-      image: uploadResult.secure_url
+      image: uploadResult.secure_url,
+      location: location || '',
+      pronouns: pronouns || '',
+      bio: bio || ''
     },
   });
 
@@ -56,7 +58,10 @@ export default async function POST(req: NextApiRequest, res: NextApiResponse) {
       lastName: newUser.lastName,
       email: newUser.email,
       username: newUser.username,
-      image: newUser.image
+      image: newUser.image,
+      location: newUser.location,
+      pronouns: newUser.pronouns,
+      bio: newUser.bio
     });
   } else {
     res.status(500).json({

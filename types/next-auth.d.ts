@@ -8,7 +8,10 @@ declare module "next-auth" {
       lasName: string;
       username: string;
       email: string;
-      image: string
+      image: string;
+      location?: string;
+      bio?: string;
+      pronouns?: string;
     };
   }
 }

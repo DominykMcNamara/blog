@@ -6,7 +6,7 @@ import CredentialsProvider from "next-auth/providers/credentials";
 export const authOptions: NextAuthOptions = {
   pages: {
     signIn: "/login",
-    error: '/errors'
+    error: "/errors",
   },
   session: {
     strategy: "jwt",
@@ -40,14 +40,17 @@ export const authOptions: NextAuthOptions = {
         ) {
           return null;
         }
-        console.log(user)
+        console.log(user);
         return {
           id: user.id,
           firstName: user.firstName,
           lastName: user.lastName,
           username: user.username,
           email: user.email,
-          image: user.image
+          image: user.image,
+          bio: user.bio,
+          location: user.location,
+          pronouns: user.pronouns,
         };
       },
     }),
@@ -56,9 +59,9 @@ export const authOptions: NextAuthOptions = {
     session: async ({ session, token }) => {
       const userData = await prisma?.user.findUnique({
         where: {
-          email: session.user?.email || undefined
-        }
-      })
+          email: session.user?.email || undefined,
+        },
+      });
       return {
         ...session,
         user: {
