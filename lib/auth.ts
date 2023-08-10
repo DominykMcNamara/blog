@@ -72,6 +72,10 @@ export const authOptions: NextAuthOptions = {
           username: userData?.username,
           id: token.id,
           randomKey: token.randomKey,
+          image: userData?.image,
+          bio: userData?.bio,
+          location: userData?.location,
+          pronouns: userData?.pronouns
         },
       };
     },

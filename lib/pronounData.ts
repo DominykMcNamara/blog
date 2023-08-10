@@ -1,0 +1,1 @@
+export const pronouns: string[] = ['She/Her', 'He/Him', "They/Them", "Ze/Zir", "She/They", "He/They", 'Ze/They' ] 

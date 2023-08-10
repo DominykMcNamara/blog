@@ -1,28 +1,31 @@
 "use client";
 
-import { FormEvent, useState } from "react";
+import { FormEvent, useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
+import { pronouns } from "lib/pronounData";
 import Link from "next/link";
 
 export default function SignupForm() {
   const [error, setError] = useState("");
-  const [loading, setLoading] = useState(false)
+  const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState("");
   const [email, setEmail] = useState("");
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [password, setPassword] = useState("");
   const [username, setUsername] = useState("");
-  const [location, setLocation] = useState("")
-  const [pronouns, setPronouns] = useState("")
-  const [bio, setBio] = useState("")
-  const [image, setImage] = useState("https://res.cloudinary.com/dab5zmbvd/image/upload/v1691437826/undraw_monster_artist_2crm_kvoet0.svg");
+  const [location, setLocation] = useState("");
+  const [preferredPronouns, setPreferredPronouns] = useState("");
+  const [bio, setBio] = useState("");
+  const [image, setImage] = useState(
+    "https://res.cloudinary.com/dab5zmbvd/image/upload/v1691437826/undraw_monster_artist_2crm_kvoet0.svg"
+  );
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setLoading(true)
-    setError("")
-    setSuccess("")
+    setLoading(true);
+    setError("");
+    setSuccess("");
     const res = await fetch("http://localhost:3000/api/signup", {
       method: "POST",
       headers: {
@@ -34,24 +37,27 @@ export default function SignupForm() {
         lastName,
         username,
         password,
-        image: image
+        image: image,
+        location,
+        pronouns: preferredPronouns,
+        bio,
       }),
     });
-   
+
     if (res.status === 409) {
-      setLoading(false)
+      setLoading(false);
       setError("Username or Email is already in use");
     }
     if (res.status === 400) {
-      setLoading(false)
+      setLoading(false);
       setError("Required data is missing");
     }
     if (res.status === 500) {
-      setLoading(false)
+      setLoading(false);
       setError("Unable to create account");
     } else if (res.status === 200) {
-      setLoading(false)
-      setError('')
+      setLoading(false);
+      setError("");
       setSuccess("Account successfully created click here to login!");
     }
   };
@@ -70,74 +76,171 @@ export default function SignupForm() {
     <>
       <form
         onSubmit={handleSubmit}
-        className="flex flex-col w-96 mx-auto my-5 p-5 bg-slate-200 rounded-lg"
+        className="flex flex-col  mx-auto my-5 p-5 bg-slate-200 rounded-lg"
       >
-        <input
-          className="my-5 p-2 outline-none rounded-sm"
-          onChange={(e) => setFirstName(e.target.value)}
-          required
-          value={firstName}
-          type="text"
-          cy-data="firstName"
-          placeholder="First Name"
-        />
-        <input
-          className="my-5 p-2 outline-none rounded-sm"
-          onChange={(e) => setLastName(e.target.value)}
-          required
-          value={lastName}
-          type="text"
-          cy-data="lastName"
-          placeholder="Last Name"
-        />
-        <input
-          className="my-5 p-2 outline-none rounded-sm"
-          onChange={(e) => setUsername(e.target.value)}
-          type="text"
-          cy-data="username"
-          value={username}
-          required
-          placeholder="username"
-        />
-        <input
-          className="my-5 p-2 outline-none rounded-sm"
-          onChange={(e) => setEmail(e.target.value)}
-          type="email"
-          cy-data="email"
-          value={email}
-          required
-          placeholder="email"
-        />
-        <input
-          className="my-5 p-2 outline-none rounded-sm"
-          type="password"
-          value={password}
-          cy-data="password"
-          required
-          placeholder="password"
-          onChange={(e) => setPassword(e.target.value)}
-        />
-        <label>Profile pic</label>
-        <input
-          className="my-2 outline-none rounded-sm"
-          type="file"
-          cy-data="image"
-          placeholder="Profile Picture"
-          onChange={handleImageChange}
-        />
-        {error && <p data-cy='signup-error-message' className="text-center text-red-500">{error}</p>}
+        <div className="flex flex-row mx-auto">
+          <div className="flex flex-col">
+            <label className="mx-5" htmlFor="firstName">
+              First Name *
+            </label>
+            <input
+              name="firstName"
+              className="my-5 p-2 outline-none rounded-sm mx-5"
+              onChange={(e) => setFirstName(e.target.value)}
+              required
+              value={firstName}
+              type="text"
+              cy-data="firstName"
+              placeholder="First Name"
+            />
+          </div>
+          <div className="flex flex-col">
+            <label className="mx-5" htmlFor="lastName">
+              Last Name *
+            </label>
+            <input
+              name="lastName"
+              className="my-5  mx-5 p-2 outline-none rounded-sm"
+              onChange={(e) => setLastName(e.target.value)}
+              required
+              value={lastName}
+              type="text"
+              cy-data="lastName"
+              placeholder="Last Name"
+            />
+          </div>
+        </div>
+        <div className="flex flex-row mx-auto">
+          <div className="flex flex-col">
+            <label className="mx-5" htmlFor="lastName">
+              Username *
+            </label>
+            <input
+              className="my-5 mx-5 p-2 outline-none rounded-sm"
+              onChange={(e) => setUsername(e.target.value)}
+              type="text"
+              cy-data="username"
+              value={username}
+              required
+              placeholder="username"
+            />
+          </div>
+          <div className="flex flex-col">
+            <label className="mx-5" htmlFor="email">
+              Email *
+            </label>
+            <input
+              className="my-5  mx-5 p-2 outline-none rounded-sm"
+              name="email"
+              onChange={(e) => setEmail(e.target.value)}
+              type="email"
+              cy-data="email"
+              value={email}
+              required
+              placeholder="email"
+            />
+          </div>
+        </div>
+        <div className="flex flex-col">
+          <label className="mx-40" htmlFor="password">
+            Password *
+          </label>
+          <input
+            className="my-5 p-2 mx-auto outline-none rounded-sm"
+            name="password"
+            type="password"
+            value={password}
+            cy-data="password"
+            required
+            placeholder="password"
+            onChange={(e) => setPassword(e.target.value)}
+          />
+        </div>
+        <div className="flex flex-col">
+          <label className="mx-40" htmlFor="location">
+            Location
+          </label>
+          <div className="flex flex-row mx-auto">
+            <input
+              className="my-5 mx-5 p-2 outline-none rounded-sm"
+              name="location"
+              type="text"
+              value={location}
+              placeholder="location"
+              onChange={(e) => setLocation(e.target.value)}
+            />
+          </div>
+          <div className="flex flex-col">
+            <label className="mx-auto" htmlFor="preferredPronouns">
+              Preferred Pronouns{" "}
+            </label>
+
+            <select
+              className="my-5 mx-auto p-2 outline-none rounded-sm"
+              name="preferredPronouns"
+              value={preferredPronouns}
+              placeholder="Select..."
+              id="pronouns"
+              onChange={(e) => setPreferredPronouns(e.target.value)}
+            >
+              <option value="N/A">N/A</option>
+              {pronouns.map((option: string) => (
+                <option key={option} value={option}>
+                  {option}
+                </option>
+              ))}
+            </select>
+          </div>
+        </div>
+        <div className="flex flex-col">
+          <label className="mx-5" htmlFor="bio">
+            Bio{" "}
+          </label>
+          <textarea
+            className="my-5 mx-5 p-2 outline-none rounded-sm"
+            name="bio"
+            rows={5}
+            value={bio}
+            placeholder="Bio"
+            onChange={(e) => setBio(e.target.value)}
+          />
+        </div>
+        <div className="flex mx-5 flex-col">
+          <label className="">Profile pic</label>
+          <input
+            name="profilePic"
+            className="my-2 outline-none rounded-sm"
+            type="file"
+            cy-data="image"
+            placeholder="Profile Picture"
+            onChange={handleImageChange}
+          />
+        </div>
+
+        {error && (
+          <p
+            data-cy="signup-error-message"
+            className="text-center text-red-500"
+          >
+            {error}
+          </p>
+        )}
         {success && (
-          <Link    data-cy="login-link" href="/login" className="hover:underline text-green-500">
+          <Link
+            data-cy="login-link"
+            href="/login"
+            className="hover:underline text-green-500"
+          >
             {success}
           </Link>
         )}
         <button
-        disabled={loading}
-          className="bg-violet-500 p-2 text-slate-100 rounded-sm hover:opacity-90"
+          disabled={loading}
+          className="bg-violet-500 p-2 text-slate-100 rounded-sm hover:opacity-90 mx-5 my-5"
           type="submit"
           cy-data="signup-button"
         >
-         {loading ? 'Creating account...': 'Sign up'}
+          {loading ? "Creating account..." : "Sign up"}
         </button>
       </form>
     </>
