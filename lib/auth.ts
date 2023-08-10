@@ -49,6 +49,7 @@ export const authOptions: NextAuthOptions = {
           email: user.email,
           image: user.image,
           bio: user.bio,
+          link: user.link,
           location: user.location,
           pronouns: user.pronouns,
         };
@@ -75,7 +76,8 @@ export const authOptions: NextAuthOptions = {
           image: userData?.image,
           bio: userData?.bio,
           location: userData?.location,
-          pronouns: userData?.pronouns
+          pronouns: userData?.pronouns,
+          link: userData?.link,
         },
       };
     },

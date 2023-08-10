@@ -15,6 +15,7 @@ export default function SignupForm() {
   const [username, setUsername] = useState("");
   const [location, setLocation] = useState("");
   const [preferredPronouns, setPreferredPronouns] = useState("");
+  const [link, setLink] = useState("");
   const [bio, setBio] = useState("");
   const [image, setImage] = useState(
     "https://res.cloudinary.com/dab5zmbvd/image/upload/v1691437826/undraw_monster_artist_2crm_kvoet0.svg"
@@ -90,7 +91,6 @@ export default function SignupForm() {
               value={firstName}
               type="text"
               cy-data="firstName"
-              placeholder="First Name"
             />
           </div>
           <div className="flex flex-col">
@@ -105,7 +105,6 @@ export default function SignupForm() {
               value={lastName}
               type="text"
               cy-data="lastName"
-              placeholder="Last Name"
             />
           </div>
         </div>
@@ -121,7 +120,6 @@ export default function SignupForm() {
               cy-data="username"
               value={username}
               required
-              placeholder="username"
             />
           </div>
           <div className="flex flex-col">
@@ -136,7 +134,6 @@ export default function SignupForm() {
               cy-data="email"
               value={email}
               required
-              placeholder="email"
             />
           </div>
         </div>
@@ -150,7 +147,6 @@ export default function SignupForm() {
               value={password}
               cy-data="password"
               required
-              placeholder="password"
               onChange={(e) => setPassword(e.target.value)}
             />
           </div>
@@ -164,31 +160,43 @@ export default function SignupForm() {
               name="location"
               type="text"
               value={location}
-              placeholder="location"
               onChange={(e) => setLocation(e.target.value)}
             />
           </div>
         </div>
-        <div className="flex flex-col">
-          <label className="mx-5" htmlFor="preferredPronouns">
-            Preferred Pronouns{" "}
-          </label>
+        <div className="flex flex-row">
+          <div className="flex flex-col">
+            <label className="mx-5" htmlFor="preferredPronouns">
+              Preferred Pronouns{" "}
+            </label>
 
-          <select
-            className="my-5 mx-5 p-2 outline-none rounded-sm"
-            name="preferredPronouns"
-            value={preferredPronouns}
-            placeholder="Select..."
-            id="pronouns"
-            onChange={(e) => setPreferredPronouns(e.target.value)}
-          >
-            <option value="N/A">N/A</option>
-            {pronouns.map((option: string) => (
-              <option key={option} value={option}>
-                {option}
-              </option>
-            ))}
-          </select>
+            <select
+              className="my-5 mx-5 p-2 outline-none rounded-sm"
+              name="preferredPronouns"
+              value={preferredPronouns}
+              id="pronouns"
+              onChange={(e) => setPreferredPronouns(e.target.value)}
+            >
+              <option value="N/A">N/A</option>
+              {pronouns.map((option: string) => (
+                <option key={option} value={option}>
+                  {option}
+                </option>
+              ))}
+            </select>
+          </div>
+          <div className="flex flex-col">
+            <label className="ml-28" htmlFor="link">
+              Personal Website
+            </label>
+            <input
+              className="my-5 ml-28 p-2 outline-none rounded-sm"
+
+              type="text"
+              value={link}
+              onChange={(e) => setLink(e.target.value)}
+            />
+          </div>
         </div>
 
         <div className="flex flex-col">
