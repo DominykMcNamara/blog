@@ -1,7 +1,6 @@
 "use client";
 
 import { FormEvent, useState, useEffect } from "react";
-import { useRouter } from "next/navigation";
 import { pronouns } from "lib/pronounData";
 import Link from "next/link";
 
@@ -141,28 +140,27 @@ export default function SignupForm() {
             />
           </div>
         </div>
-        <div className="flex flex-col">
-          <label className="mx-40" htmlFor="password">
-            Password *
-          </label>
-          <input
-            className="my-5 p-2 mx-auto outline-none rounded-sm"
-            name="password"
-            type="password"
-            value={password}
-            cy-data="password"
-            required
-            placeholder="password"
-            onChange={(e) => setPassword(e.target.value)}
-          />
-        </div>
-        <div className="flex flex-col">
-          <label className="mx-40" htmlFor="location">
-            Location
-          </label>
-          <div className="flex flex-row mx-auto">
+        <div className="flex flex-row mx-auto">
+          <div className="flex flex-col">
+            <label htmlFor="password">Password *</label>
             <input
-              className="my-5 mx-5 p-2 outline-none rounded-sm"
+              className="my-5 p-2 mx-auto outline-none rounded-sm"
+              name="password"
+              type="password"
+              value={password}
+              cy-data="password"
+              required
+              placeholder="password"
+              onChange={(e) => setPassword(e.target.value)}
+            />
+          </div>
+          <div className="flex flex-col">
+            <label className="mx-10" htmlFor="location">
+              Location
+            </label>
+
+            <input
+              className="my-5 ml-10 p-2 outline-none rounded-sm"
               name="location"
               type="text"
               value={location}
@@ -170,28 +168,29 @@ export default function SignupForm() {
               onChange={(e) => setLocation(e.target.value)}
             />
           </div>
-          <div className="flex flex-col">
-            <label className="mx-auto" htmlFor="preferredPronouns">
-              Preferred Pronouns{" "}
-            </label>
-
-            <select
-              className="my-5 mx-auto p-2 outline-none rounded-sm"
-              name="preferredPronouns"
-              value={preferredPronouns}
-              placeholder="Select..."
-              id="pronouns"
-              onChange={(e) => setPreferredPronouns(e.target.value)}
-            >
-              <option value="N/A">N/A</option>
-              {pronouns.map((option: string) => (
-                <option key={option} value={option}>
-                  {option}
-                </option>
-              ))}
-            </select>
-          </div>
         </div>
+        <div className="flex flex-col">
+          <label className="mx-5" htmlFor="preferredPronouns">
+            Preferred Pronouns{" "}
+          </label>
+
+          <select
+            className="my-5 mx-5 p-2 outline-none rounded-sm"
+            name="preferredPronouns"
+            value={preferredPronouns}
+            placeholder="Select..."
+            id="pronouns"
+            onChange={(e) => setPreferredPronouns(e.target.value)}
+          >
+            <option value="N/A">N/A</option>
+            {pronouns.map((option: string) => (
+              <option key={option} value={option}>
+                {option}
+              </option>
+            ))}
+          </select>
+        </div>
+
         <div className="flex flex-col">
           <label className="mx-5" htmlFor="bio">
             Bio{" "}
@@ -229,7 +228,7 @@ export default function SignupForm() {
           <Link
             data-cy="login-link"
             href="/login"
-            className="hover:underline text-green-500"
+            className="hover:underline text-green-500 text-center"
           >
             {success}
           </Link>
