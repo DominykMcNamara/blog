@@ -32,14 +32,14 @@ export default function SignupForm() {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        email,
+        email: email.toLowerCase(),
         firstName,
         lastName,
-        username,
         password,
         image: image,
         location,
         pronouns: preferredPronouns,
+        link: link.toLowerCase(),
         bio,
       }),
     });

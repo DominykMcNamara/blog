@@ -17,7 +17,7 @@ export default function LoginForm() {
     setLoading(true)
     try {
       const result = await signIn("credentials", {
-        email,
+        email: email.toLowerCase(),
         password,
         redirect: false,
         callbackUrl,
