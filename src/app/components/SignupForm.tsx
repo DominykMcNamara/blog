@@ -1,6 +1,6 @@
 "use client";
 
-import { FormEvent, useState, useEffect } from "react";
+import { FormEvent, useState } from "react";
 import { pronouns } from "lib/pronounData";
 import Link from "next/link";
 
@@ -191,7 +191,7 @@ export default function SignupForm() {
             </label>
             <input
               className="my-5 ml-28 p-2 outline-none rounded-sm"
-
+              name="link"
               type="text"
               value={link}
               onChange={(e) => setLink(e.target.value)}
