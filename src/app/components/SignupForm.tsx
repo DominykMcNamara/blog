@@ -33,6 +33,8 @@ export default function SignupForm() {
       },
       body: JSON.stringify({
         email: email.toLowerCase(),
+
+        username,
         firstName,
         lastName,
         password,

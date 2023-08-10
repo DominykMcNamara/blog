@@ -5,7 +5,7 @@ import type { NextApiRequest, NextApiResponse } from "next";
 const bcrypt = require("bcrypt");
 
 export default async function POST(req: NextApiRequest, res: NextApiResponse) {
-  const { firstName, lastName, username, email, password, image, location, pronouns, bio } = req.body;
+  const { firstName, lastName, username, email, password, image, location, pronouns, bio , link} = req.body;
   const userNameExist = await prisma?.user.findUnique({
     where: {
       username: username,
@@ -37,9 +37,10 @@ export default async function POST(req: NextApiRequest, res: NextApiResponse) {
       email,
       password: hashedPassword,
       image: uploadResult.secure_url,
-      location: location || '',
-      pronouns: pronouns || '',
-      bio: bio || ''
+      location: location || 'Planet Earth',
+      pronouns: pronouns || 'N/A',
+      bio: bio || 'Hello World',
+      link: link || 'N/A'
     },
   });
 
@@ -60,8 +61,9 @@ export default async function POST(req: NextApiRequest, res: NextApiResponse) {
       username: newUser.username,
       image: newUser.image,
       location: newUser.location,
-      pronouns: newUser.pronouns,
-      bio: newUser.bio
+      pronouns: newUser.pronouns || 'N/A',
+      bio: newUser.bio  || 'Hello World', 
+      link: newUser.link || 'N/A'
     });
   } else {
     res.status(500).json({
