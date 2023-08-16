@@ -5,13 +5,14 @@ declare module "next-auth" {
     user: {
       id: string;
       firstName: string;
-      lasName: string;
+      lastName: string;
       username: string;
       email: string;
       image: string;
-      location?: string;
-      bio?: string;
-      pronouns?: string;
+      location: string;
+      bio: string;
+      pronouns: string;
+      link: string
     };
   }
 }

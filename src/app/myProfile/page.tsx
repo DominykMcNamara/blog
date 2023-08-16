@@ -4,6 +4,8 @@ import { signOut, useSession } from "next-auth/react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import ProfilePic from "../components/ProfilePic";
+import ProfileCard from "../components/ProfileCard";
+import CreateBlogPost from "../components/CreateBlogPost";
 
 export default function Profile() {
   const router = useRouter();
@@ -14,25 +16,37 @@ export default function Profile() {
     },
   });
 
-  useEffect(() => console.log(session));
-
-
   return (
-    <>
-      <section className="bg-ct-blue-600  min-h-screen pt-20">
-        <div className="max-w-4xl mx-auto bg-ct-dark-100 rounded-md h-[20rem] flex justify-center items-center">
-          <div>
-            <div className="flex flex-col  items-center gap-8">
-              <ProfilePic img={session?.user.image} />
-              <h2>Welcome {session?.user.username}</h2>
-
-              <button onClick={() => signOut({ callbackUrl: "/login" })}>
-                Signout
-              </button>
+    <div className="min-h-[100vh] flex flex-row">
+      {!session ? (
+        <h1 className="text-center text-2xl mt-40">Loading...</h1>
+      ) : (
+        <>
+          <section
+            id="left-profile-info"
+            className="  min-h-screen w-[25vw]"
+          >
+            <div className="flex border-solid border-indigo-200 border-2 shadow-xl rounded-xl my-10 space-y-6 p-5 flex-col w-96 mx-auto">
+              <ProfilePic img={session.user.image} />
+              <ProfileCard
+                firstName={session.user.firstName}
+                lastName={session.user.lastName}
+                username={session.user.username}
+                email={session.user.email}
+                location={session.user.location}
+                pronouns={session.user.pronouns}
+                bio={session.user.bio}
+                link={session.user.link}
+              />
             </div>
-          </div>
-        </div>
-      </section>
-    </>
+          </section>
+          <>
+            <section id="feed" className="mx-auto">
+              <CreateBlogPost username={session.user.username} />
+            </section>
+          </>
+        </>
+      )}
+    </div>
   );
 }

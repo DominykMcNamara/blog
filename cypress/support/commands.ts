@@ -15,8 +15,11 @@ Cypress.Commands.add(
     cy.get('[cy-data="firstName"]').type(firstName);
     cy.get('[cy-data="lastName"]').focus()
     cy.get('[cy-data="lastName"]').type(lastName);
+    cy.get('[cy-data="email"]').focus();
     cy.get('[cy-data="email"]').type(email);
+    cy.get('[cy-data="username"]').focus();
     cy.get('[cy-data="username"]').type(username);
+    cy.get('[cy-data="password"]').focus();
     cy.get('[cy-data="password"]').type(password);
     cy.get('[cy-data="signup-button"]').click();
     //cy.url().should("include", "/login");

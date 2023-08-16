@@ -1,19 +1,19 @@
 import Image from "next/image";
 
 type Props = {
-  img: string | undefined;
+  img: string | undefined,
 };
 
 export default function ProfilePic({img}: Props): JSX.Element {
   return (
-    <section className="w-full mx-auto">
+    <section className="mx-auto">
       <Image
-        className="border-4 border-violet-300 drop-shadow-xl shadow-black rounded-full mx-auto mt-8"
+        className="drop-shadow-xl shadow-black rounded-md"
         src={img || ''}
         width={200}
         height={200}
-        alt="Dom McNamara"
-        loading="lazy"
+        alt="Users profile picture"
+        priority={true}
       />
     </section>
   );
