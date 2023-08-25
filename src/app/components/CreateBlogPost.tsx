@@ -1,4 +1,4 @@
-import { useState, FormEvent } from "react";
+import { useState } from "react";
 
 type Props = {
   username: string;
@@ -8,13 +8,13 @@ export default function CreateBlogPost({ username }: Props) {
   const [showModal, setShowModal] = useState(false);
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
-  const [loading, setLoading] = useState(false)
-  const [success, setSuccess] = useState('')
-  const [error, setError] = useState('')
+  const [loading, setLoading] = useState(false);
+  const [success, setSuccess] = useState("");
+  const [error, setError] = useState("");
 
   const handleDraft = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
-    setLoading(true)
+    setLoading(true);
     const res = await fetch("http://localhost:3000/api/posts", {
       method: "POST",
       headers: {
@@ -26,27 +26,26 @@ export default function CreateBlogPost({ username }: Props) {
         published: false,
       }),
     });
-    if(res.status === 200) {
-      setLoading(false)
-      setError('')
-      setSuccess('Post successfully published!')
-      setTitle('')
-      setContent('')
+    if (res.status === 200) {
+      setLoading(false);
+      setError("");
+      setSuccess("Post successfully published!");
+      setTitle("");
+      setContent("");
       setTimeout(() => {
-        setSuccess('')
+        setSuccess("");
       }, 1000);
-
     }
-    if(res.status === 500) {
-      setSuccess('')
-      setLoading(false)
-      setError('Unable to create post')
+    if (res.status === 500) {
+      setSuccess("");
+      setLoading(false);
+      setError("Unable to create post");
     }
   };
 
   const handlePublished = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
-    setLoading(true)
+    setLoading(true);
     const res = await fetch("http://localhost:3000/api/posts", {
       method: "POST",
       headers: {
@@ -58,21 +57,20 @@ export default function CreateBlogPost({ username }: Props) {
         published: true,
       }),
     });
-    if(res.status === 200) {
-      setLoading(false)
-      setError('')
-      setSuccess('Post successfully published!')
-      setTitle('')
-      setContent('')
+    if (res.status === 200) {
+      setLoading(false);
+      setError("");
+      setSuccess("Post successfully published!");
+      setTitle("");
+      setContent("");
       setTimeout(() => {
-        setSuccess('')
+        setSuccess("");
       }, 1000);
-
     }
-    if(res.status === 500) {
-      setSuccess('')
-      setLoading(false)
-      setError('Unable to create post')
+    if (res.status === 500) {
+      setSuccess("");
+      setLoading(false);
+      setError("Unable to create post");
     }
   };
 
@@ -100,15 +98,27 @@ export default function CreateBlogPost({ username }: Props) {
               onChange={(e) => setContent(e.target.value)}
               placeholder="Content..."
             />
-              
-            <button className="bg-violet-500 rounded-sm text-slate-100 p-3 hover:opacity-90 hover:underline drop-shadow-xl"  onClick={handleDraft}>Save Draft</button>
-            {loading && <p className="text-center">Please Wait...</p>}
-            {error && <p  className="text-center text-red-500">{error}</p>}
-             {success && <p  className="text-center text-green-500">{success}</p>} 
-            <button disabled={loading} className="bg-purple-500 rounded-sm text-slate-100 p-3 hover:opacity-90 hover:underline drop-shadow-xl"  onClick={handlePublished}>Publish</button>
-            <button disabled={loading} onClick={() => setShowModal(false)}>Close</button>
-          </form>
 
+            <button
+              className="bg-violet-500 rounded-sm text-slate-100 p-3 hover:opacity-90 hover:underline drop-shadow-xl"
+              onClick={handleDraft}
+            >
+              Save Draft
+            </button>
+            {loading && <p className="text-center">Please Wait...</p>}
+            {error && <p className="text-center text-red-500">{error}</p>}
+            {success && <p className="text-center text-green-500">{success}</p>}
+            <button
+              disabled={loading}
+              className="bg-purple-500 rounded-sm text-slate-100 p-3 hover:opacity-90 hover:underline drop-shadow-xl"
+              onClick={handlePublished}
+            >
+              Publish
+            </button>
+            <button disabled={loading} onClick={() => setShowModal(false)}>
+              Close
+            </button>
+          </form>
         </div>
       </div>
     </>

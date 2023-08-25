@@ -55,7 +55,7 @@ export default function SignupForm() {
       setError("Required data is missing");
     }
     if (res.status === 500) {
-      console.log(res)
+      console.log(res);
       setLoading(false);
       setError("Unable to create account");
     } else if (res.status === 200) {
